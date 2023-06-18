@@ -1,61 +1,44 @@
-#include <iostream>
-#include<queue>
-using namespace std;
+class MyStack {
+public:
 
-class stack
-{
-    public:
     queue<int> q;
-    void stack_push(int val)
+
+    MyStack() {}
+    
+    void push(int x) 
     {
-        if(q.empty())
+        int size = q.size();
+        q.push(x);
+        for(int i=0;i<size;i++)
         {
-            q.push(val);
-            return;
+            q.push(q.front());
+            q.pop();
         }
-        int n = q.front();
-        stack_push(val);
-        q.push(n);
     }
-
-    void pop()
+    
+    int pop() 
     {
+        if(q.size() == 0)return -1;
+        int top = q.front();
         q.pop();
+        return top;
     }
-
-    int top
+    
+    int top() 
     {
-        if(q.empyt())
+        if(q.size() == 0)
         {
-            cout<<"Stack Underflow"<<endl;
             return -1;
         }
-        int val = q.front();
-        q.pop();
+        return q.front();
     }
-
-    bool isEmpty()
+    
+    bool empty() 
     {
-        if(q.empty())
+        if(q.size() == 0)
         {
-            return true;
+            return 1;
         }
-        return false;
+        return 0;
     }
-}
-
-int main()
-{
-    stack *s = new stack();
-    s->push_stack(10);
-    s->push_stack(20);
-    s->push_stack(30);
-    s->push_stack(40);
-    s->push_stack(50);
-
-    cout<<s->isEmpty()<<endl;
-    cout<<s->top()<<endl;
-    s->pop();
-    cout<<s->top()<<endl;
-    return 0;
-}
+};
